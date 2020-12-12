@@ -55,7 +55,7 @@ def ProcessData(photo_url, sketch_url):
 
 def training(train_dat, G, D):
     # Hyperparameters
-    NUM_EPOCHS = 20
+    NUM_EPOCHS = 10
     G_LEARNING_RATE = 0.0002
     D_LEARNING_RATE = 0.0002
     BETA1 = 0.5
@@ -153,10 +153,10 @@ def training(train_dat, G, D):
         per_epoch_ptime = epoch_end_time - epoch_start_time
         
         # Saving the generator
-        torch.save(G, '/data2/limill01/dl/sketchy-v2/model/generator/gen_' + str(epoch))
+        torch.save(G, '/data2/limill01/dl/sketchy-v2/models/generator/all/gen' + str(epoch))
 
         # Saving the discriminator
-        torch.save(D, '/data2/limill01/dl/sketchy-v2/model/discriminator/disc_' + str(epoch))
+        torch.save(D, '/data2/limill01/dl/sketchy-v2/models/discriminator/all/disc' + str(epoch))
 
         print('[%d/%d] - ptime: %.2f, loss_d: %.3f, loss_g: %.3f' % ((epoch + 1), NUM_EPOCHS, per_epoch_ptime, torch.mean(torch.FloatTensor(D_losses)),
                                                                   torch.mean(torch.FloatTensor(G_losses))))
@@ -182,7 +182,7 @@ train_dat = SketchPhotoDataset(train)
 test_dat = SketchPhotoDataset(test)
 
 # Params
-batch_size = 64
+batch_size = 16
 shuffle = True
 data_train = torch.utils.data.DataLoader(train_dat, batch_size=batch_size, shuffle=shuffle)
 data_test = torch.utils.data.DataLoader(test_dat, batch_size=batch_size, shuffle=shuffle)

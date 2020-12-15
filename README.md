@@ -7,11 +7,9 @@ In this project, we experiment with using GAN models to generate photorealistic 
 One initial source of inspiration for this problem was this fun [boredpanda article](https://www.boredpanda.com/kid-drawings-things-i-have-drawn-dom/?utm_source=google&utm_medium=organic&utm_campaign=organic) describing how a dad uses photoshop to turn his son's doodles into photo-realistic images.  We thought it would be interesting to see if we could get similar results using deep learning. In addition to getting cool results, the ability to turn simple line sketches into photo-realistic images could potentionally help artists create quick brainstorming images, or help people ideate by sketching instead of typing.
 
 # Related Work
-We referenced the [pix2pix](https://arxiv.org/pdf/1611.07004.pdf) and [CycleGAN](https://arxiv.org/pdf/1703.10593.pdf) papers for this project.  
-* SketchMan paper
-* Sketchy paper
-* Pix2Pix paper
-* CycleGAN paper
+We referenced the [Pix2Pix](https://arxiv.org/pdf/1611.07004.pdf) and [CycleGAN](https://arxiv.org/pdf/1703.10593.pdf) papers for this project. Pix2Pix uses conditional GANs to train on pairs of sketches and photos, where the generator learns to output fake photos as the corresponding image to a given sketch.  The second paper uses a Cycle GAN to train on unpaired data, with no information matching the two categories of photos and sketches.  One apparent difference between our project and the Pix2Pix paper is that while our data is paired, there is more variation between the sketches and photos (i.e. our sketches are hand-drawn, not simply an edge detection or tracing).
+
+We also looked at the [Sketchy](https://www.cc.gatech.edu/~hays/tmp/sketchy-database.pdf) and [SketchMan papers](https://dl.acm.org/doi/abs/10.1145/3394171.3413720), since initially we wanted to do sketch enhancement.  The Sketchy project (which is where we got our dataset from) deals with mapping handdrawn sketches to photos by matching pose and category, with a goal of supporting image retrieval.  The recent SketchMan paper deals with generating professional-looking, colored illustrations from simple black-and-white sketches, using a complex process of different pipelines to perform this sketch enhancement.
 
 # Approach
 

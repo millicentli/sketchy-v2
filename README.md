@@ -8,6 +8,10 @@ One initial source of inspiration for this problem was this fun [boredpanda arti
 
 # Related Work
 We referenced the [pix2pix](https://arxiv.org/pdf/1611.07004.pdf) and [CycleGAN](https://arxiv.org/pdf/1703.10593.pdf) papers for this project.  
+* SketchMan paper
+* Sketchy paper
+* Pix2Pix paper
+* CycleGAN paper
 
 # Approach
 
@@ -50,8 +54,5 @@ In our initial results, our discriminator loss kept converging to 0, preventing 
 
 ### Single Category
 
-# Sources
-* SketchMan paper
-* Sketchy paper
-* Pix2Pix paper
-* CycleGAN paper
+# Discussion
+In conclusion ...

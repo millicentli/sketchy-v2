@@ -1,5 +1,5 @@
 # Generating Photorealistic Images from Sketches using GANs
-In this project, we experiment with using GAN models to generate photorealistic images from simple black-and-white sketches. The pix2pix and CycleGAN papers (described below) inspired us to use GAN models to approach this problem.  We tried both a conditional GAN and a CycleGAN model to see how the results would compare.  We were able to achieve **___ accuracy/loss blah blah numbers** when generating these images.
+In this project, we experiment with using GAN models to generate photorealistic images from simple black-and-white sketches. The pix2pix and CycleGAN papers (described below) inspired us to use GAN models to approach this problem.  We tried both a conditional GAN and a CycleGAN model to see how the results would compare.
 
 **VIDEO GOES HERE**
 

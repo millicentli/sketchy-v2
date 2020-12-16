@@ -44,14 +44,20 @@ In our initial results, our discriminator loss kept converging to 0, preventing 
 
 ### Results
 
-![Result](results/)
+<img src="results/pix2pix_owl.png" width="250">
+<img src="results/pix2pix_glasses.png" width="250">
 It seemed like the pix2pix model didn't learn colors very well, as the results are largely just a modified version of the sketch.
 
 ## CycleGAN model
 
-While running the CycleGAN model, we realized that the output values had to be scaled by 255 in order to get the image result to show up with colors.  
+With both of our models, we had an issue where our image results were all black.  We hypothesized that perhaps our model wasn't learning anything because of the large variation in the dataset, or that it was having trouble mapping between black-and-white and colored input.  However, while running the CycleGAN model, we realized that the output values had to be scaled by 255 in order to get the image result to show up with colors.  
 
 ### Results
 
+<img src="results/cyclegan_car.png" width="250">
+<img src="results/cyclegan_house.png" width="250">
+<img src="results/cyclegan_goose.png" width="250">
+Although colors and basic form showed up in the output images, the results are far from photorealistic.  The colors are pretty blown-out and saturated.  With more training time, we could probably achieve better results with the model.  However, the CycleGAN still seems to give better results than the Pix2pix model, since the images have more color and seem to be more influenced by training with the photos.
+
 # Discussion
-In conclusion, we realized that we may have overestimated our goals given our time constraints and limited experience with GANs.  We learned that GANs are tricky to train and troubleshoot, and that data collection and parsing is a really important and time-consuming part of the project.  We were excited to try a few different models on our data and compare them, but we were disappointed with our lack of results.  If we did this project again, we would definitely make some changes such as choosing a more targeted dataset (fewer categories and more examples with slight variation) or just try training a single model in order to focus our project and allow more time for debugging and troubleshooting.  We think that this approach would at least give us a clearer path for our project, even if it wouldn't specifically solve the problems we encountered here.
+In conclusion, we realized that we may have overestimated our goals given our time constraints and limited experience with GANs.  We learned that GANs are tricky to train and troubleshoot, and that data collection and parsing is a really important and time-consuming part of the project.  We were excited to try a few different models on our data and compare them, but we were disappointed with our lack of reasonable results.  If we did this project again, we would definitely make some changes such as choosing a more targeted dataset (fewer categories and more examples with slight variation) or just try training a single model in order to focus our project and allow more time for debugging and troubleshooting.  We think that this approach would at least give us a clearer path for our project, even if it wouldn't specifically solve the problems we encountered here.

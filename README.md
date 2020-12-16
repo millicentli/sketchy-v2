@@ -1,7 +1,11 @@
 # Generating Photorealistic Images from Sketches using GANs
-In this project, we experiment with using GAN models to generate photorealistic images from simple black-and-white sketches. The pix2pix and CycleGAN papers (described below) inspired us to use GAN models to approach this problem.  We tried both a conditional GAN and a CycleGAN model to see how the results would compare.
+In this project, we experiment with using GAN models to generate photorealistic images from simple black-and-white sketches. The pix2pix and CycleGAN papers (described below) inspired us to use GAN models to approach this problem.  We tried both a conditional GAN and a CycleGAN model to see how the results would compare.  We were able to achieve **___ accuracy/loss blah blah numbers** when generating these images.
 
 **VIDEO GOES HERE**
+
+**COLAB GOES HERE**
+
+**PRESENTATION GOES HERE**
 
 # Introduction
 One initial source of inspiration for this problem was this fun [boredpanda article](https://www.boredpanda.com/kid-drawings-things-i-have-drawn-dom/?utm_source=google&utm_medium=organic&utm_campaign=organic) describing how a dad uses photoshop to turn his son's doodles into photo-realistic images.  We thought it would be interesting to see if we could get similar results using deep learning. In addition to getting cool results, the ability to turn simple line sketches into photo-realistic images could potentially help artists create quick brainstorming images, or help people ideate by sketching instead of typing.
@@ -20,7 +24,15 @@ We used the Sketchy database, which contains photos of objects from different ca
 ## Models
 We chose to try a pix2pix (conditional GAN) model and a CycleGAN model, and compare results from both.  We learned from the CycleGAN and pix2pix papers that CycleGAN models are supposed to work well for unpaired data, while the pix2pix model depends on having paired data. Since our data was paired between photos and sketches, we were interested to try both types of models and see the differences in their results.
 
-We hypothesized that training a GAN on a wide variety of types of images might cause it to struggle to learn any one type of image well. In order to test this hypothesis, we experimented with models using the full dataset (across all of the categories) and an individual model for just a few categories.
+The model architecture for the pix2pix cGAN was based off of existing literature focusing on the use of a DCGAN in [Radford and Metz et. al 2016](https://arxiv.org/pdf/1511.06434.pdf). The architecture follows an encoder/decoder fashion, and in the pix2pix model, their "U-Net" architecture contains skip-layers to avoid the typical bottleneck in an encoder/decoder architecture that allows the input to pass information to other layers not directly connected. For example, the first input layer and last output layer may contain information about things such as edges that are not evident when passed through the model directly. While a GAN learns a generative model of the data, a cGAN learns a conditional generative model of the data.
+
+![The pix2pix DCGAN architecture is shown here](results/pix2pix-arch.png)
+
+The original architecture takes in a 100 dimensional distribution, reshapes it into a 4x4x1024 to 8x8x512 using a 4x4 convolution of stride 2, 8x8x512 to 16x16x256 using a 5x5 using a convolution of stride 2, 16x16x256 to 32x32x128 using a convolution of stride 2, then 32x32x128 to 64x64x3 using a convolution of stride 2.
+
+The model architecture for the CycleGAN was based off of existing literature focused on using GANs for style transfer in [Johnson et al. 2016](https://arxiv.org/pdf/1603.08155.pdf). Specifically, the current CycleGAN architecture contains three convolutions, several residual blocks, two fractionally-strided convolutions with stride of 0.5, and one convolution for mapping features to RGB. In addition, there are 6 blocks for 128x128 images and 9 blocks for 256x256 images. We adapted this architecture to work well with the 256x256 images in the Sketchy database.
+
+We hypothesized that training a GAN on a wide variety of types of images might cause it to struggle to learn any one type of image well. In order to test this hypothesis, we experimented with models using the full dataset (across all of the categories) and an individual model for just a few categories, with hopes that for an individual category, the model would hone in on a specific image type and image shape.
 
 ## Initial Testing
 First we wanted to get a feel for what kind of images could be realistically generated using our dataset. To this end, we made a simple DCGAN based on a tutorial in the Pytorch documentation, which generates random images from the photos in our data. The sketches are not considered in this model, and only the photos were used.
@@ -58,14 +70,6 @@ With both of our models, we had an issue where our image results were all black.
 <img src="results/cyclegan_house.png" width="250">
 <img src="results/cyclegan_goose.png" width="250">
 Although colors and basic form showed up in the output images, the results are far from photorealistic.  The colors are pretty blown-out and saturated.  With more training time, we could probably achieve better results with the model.  However, the CycleGAN still seems to give better results than the Pix2pix model, since the images have more color and seem to be more influenced by training with the photos.
-
-## Roadblocks and Responses
-
-We ran into quite a few issues while training our models. Our discriminator loss was converging to 0, so we experimented with training the generator twice as much as discriminator. We also tried training the generator and discriminator with a 5:1 ratio, since the generator was harder to train.  However, even with this staggered training the generator loss was still pretty stagnant and the discriminator loss also didn't improve much.  We think this might be because our sketch data was so sparse which made it difficult for the generator to learn and train.
-
-Another issue was getting completely black output from our models.  We were stuck trying to figure out this issue for a while, hypothesizing that it was because of our input or because our model wasn't learning anything. Eventually while training the CycleGAN we discovered that we were truncating values when we should have been converting the float output values to a 255 scale.  Once we made this change, we were able to get some color output.  However, the colors are still very saturated and blown-out. We think that if ran our training for longer, we could achieve better-looking results.
-
-We also think that because the sketch input was not closely tied to the photos (i.e. handdrawn instead of an edge tracing), it made it more difficult for the GANs to learn features and the mapping between the sketches and photos.  In the pix2pix paper, for example, they use clean outline edges for matching photos, rather than rough sketches.  It would be interesting to try running these models with more closely matched data to see if we could get better results.
 
 # Discussion
 In conclusion, we realized that we may have overestimated our goals given our time constraints and limited experience with GANs.  We learned that GANs are tricky to train and troubleshoot, and that data collection and parsing is a really important and time-consuming part of the project.  We were excited to try a few different models on our data and compare them, but we were disappointed with our lack of reasonable results.  If we did this project again, we would definitely make some changes such as choosing a more targeted dataset (fewer categories and more examples with slight variation) or just try training a single model in order to focus our project and allow more time for debugging and troubleshooting.  We think that this approach would at least give us a clearer path for our project, even if it wouldn't specifically solve the problems we encountered here.

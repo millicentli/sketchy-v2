@@ -74,6 +74,7 @@ Although colors and basic form showed up in the output images, the results are f
 ## Extra Results
 
 While we were working through the training, we also tried teaching our pix2pix and CycleGAN models to take an image and turn it into a sketch. We were interested to try going backwards and see what kind of results we would get.  The left column is a result from the pix2pix model.  The right column is a result from the CycleGAN model. The top row is the original photo, and the bottom row is the 'sketch' output.  It seems like the pix2pix model didn't learn anything from the training, since the output looks identical to the input.  We probably messed something up with the model implementation. However, the CycleGAN result turned out pretty well although it didn't pick up on low contrast details.
+
 <img src="results/pix2pix_swan.png" width="270">
 <img src="results/cyclegan_elephant.png" width="200">
 

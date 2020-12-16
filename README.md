@@ -71,5 +71,19 @@ With both of our models, we had an issue where our image results were all black.
 <img src="results/cyclegan_goose.png" width="250">
 Although colors and basic form showed up in the output images, the results are far from photorealistic.  The colors are pretty blown-out and saturated.  With more training time, we could probably achieve better results with the model.  However, the CycleGAN still seems to give better results than the Pix2pix model, since the images have more color and seem to be more influenced by training with the photos.
 
+## Extra Results
+
+While we were working through the training, we also tried teaching our pix2pix and CycleGAN models to take an image and turn it into a sketch. We were interested to try going backwards and see what kind of results we would get.  The left column is a result from the pix2pix model.  The right column is a result from the CycleGAN model. The top row is the original photo, and the bottom row is the 'sketch' output.  It seems like the pix2pix model didn't learn anything from the training, since the output looks identical to the input.  We probably messed something up with the model implementation. However, the CycleGAN result turned out pretty well although it didn't pick up on low contrast details.
+<img src="results/pix2pix_swan.png" width="270">
+<img src="results/cyclegan_elephant.png" width="200">
+
+## Roadblocks and Responses
+
+We ran into quite a few issues while training our models. Our discriminator loss was converging to 0, so we experimented with training the generator twice as much as discriminator. We also tried training the generator and discriminator with a 5:1 ratio, since the generator was much harder to train.  However, even with this staggered training the generator loss was still pretty stagnant and the discriminator loss also didn't improve much.  We think this might be because our sketch data was so sparse which made it difficult for the generator to learn and train.
+
+Another issue was getting completely black output from our models.  We were stuck trying to figure out this issue for a while, hypothesizing that it was because of our input or because our model wasn't learning anything. Eventually while training the CycleGAN we discovered that we were truncating values when we should have been converting the float output values to a 255 scale.  Once we made this change, we were able to get some color output.  However, the colors are still very saturated and blown-out. We think that if ran our training for longer, we could achieve better-looking results.
+
+We also think that because the sketch input was not closely tied to the photos (i.e. handdrawn instead of an edge tracing), it made it more difficult for the GANs to learn features and the mapping between the sketches and photos.  In the pix2pix paper, for example, they use clean outline edges for matching photos, rather than rough sketches.  It would be interesting to try running these models with more closely matched data to see if we could get better results.
+
 # Discussion
 In conclusion, we realized that we may have overestimated our goals given our time constraints and limited experience with GANs.  We learned that GANs are tricky to train and troubleshoot, and that data collection and parsing is a really important and time-consuming part of the project.  We were excited to try a few different models on our data and compare them, but we were disappointed with our lack of reasonable results.  If we did this project again, we would definitely make some changes such as choosing a more targeted dataset (fewer categories and more examples with slight variation) or just try training a single model in order to focus our project and allow more time for debugging and troubleshooting.  We think that this approach would at least give us a clearer path for our project, even if it wouldn't specifically solve the problems we encountered here.

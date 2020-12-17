@@ -1,11 +1,9 @@
 # Generating Photorealistic Images from Sketches using GANs
 In this project, we experiment with using GAN models to generate photorealistic images from simple black-and-white sketches. The pix2pix and CycleGAN papers (described below) inspired us to use GAN models to approach this problem.  We tried both a conditional GAN and a CycleGAN model to see how the results would compare.
 
-**VIDEO GOES HERE**
+[Sketchy Project Video](https://youtu.be/acsdXb7oefI) ([Slides](https://docs.google.com/presentation/d/1yN9IvKKX6WaXun1nf3RqvzICjumgZMcPvBAmRS72_0Y/edit?usp=sharing))
 
-**COLAB GOES HERE**
-
-**PRESENTATION GOES HERE**
+[Colab](https://colab.research.google.com/drive/1cf_dXzL2POuPXjI7fpkvzPcHvYdbiQoI?usp=sharing)
 
 # Introduction
 One initial source of inspiration for this problem was this fun [boredpanda article](https://www.boredpanda.com/kid-drawings-things-i-have-drawn-dom/?utm_source=google&utm_medium=organic&utm_campaign=organic) describing how a dad uses photoshop to turn his son's doodles into photo-realistic images.  We thought it would be interesting to see if we could get similar results using deep learning. In addition to getting cool results, the ability to turn simple line sketches into photo-realistic images could potentially help artists create quick brainstorming images, or help people ideate by sketching instead of typing.
